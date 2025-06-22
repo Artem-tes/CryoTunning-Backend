@@ -10,5 +10,5 @@ public interface VehicleService {
     ResponseEntity<?> getUserCars(UserDetails userDetails);
     ResponseEntity<?> createCar(UserDetails userDetails, CreateCarDTO dto);
     ResponseEntity<?> deleteCar(UserDetails userDetails,Integer idCar);
-    ResponseEntity<CarResponseDTO> getCarByIdUser(User user,Integer idCar);
+    ResponseEntity<CarResponseDTO> getCarById(User user,Integer idCar);
 }

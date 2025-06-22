@@ -34,15 +34,17 @@ public class VehicleServiceIMPL implements VehicleService {
 
     /// /// MAIN METHOD
     @Override
-    public ResponseEntity<CarResponseDTO> getCarByIdUser(User user, Integer idCar) {
-        //main validate method
+    public ResponseEntity<CarResponseDTO> getCarById(User user, Integer idCar) {
+        //VALIDATE
         mainValidateGetCarById(user,idCar);
+        //OPERATE
         CarEntity car = getCarByIdFromDb(idCar);
+        //RESPONSE
         CarResponseDTO carResponseDTO = formResponseToGetCarByIdUSer(car);
         return ResponseEntity.status(200).body(carResponseDTO);
     }
 
-    /// /// FROM RESPONSE BLOCK
+    /// /// FORM RESPONSE BLOCK
     private CarResponseDTO formResponseToGetCarByIdUSer(CarEntity car){
         Integer idCar = car.getId();
         HashMap<String,String> carData = getNameAutoPartByIds(car);
@@ -56,16 +58,13 @@ public class VehicleServiceIMPL implements VehicleService {
         Model model = modelRepository.findById(car.getModelId()).get();
         Generation generation = generationRepository.findById(car.getGenerationId()).get();
         Color color = colorRepository.findById(car.getColorId()).get();
-        if(brand == null || model == null || generation == null || color == null){
-            throw new NullFindCarInfoException("cannot resolve car data");
-        }else {
-            HashMap<String,String> carInfoString = new HashMap<>();
-            carInfoString.put("model",model.getModelName());
-            carInfoString.put("brand",brand.getBrandName());
-            carInfoString.put("generation",generation.getGenerationName());
-            carInfoString.put("color",color.getColorName());
-            return carInfoString;
-        }
+        HashMap<String,String> carInfoString = new HashMap<>();
+        carInfoString.put("model",model.getModelName());
+        carInfoString.put("brand",brand.getBrandName());
+        carInfoString.put("generation",generation.getGenerationName());
+        carInfoString.put("color",color.getColorName());
+        return carInfoString;
+
 
     }
 
@@ -78,6 +77,19 @@ public class VehicleServiceIMPL implements VehicleService {
     private void mainValidateGetCarById(User user,Integer idCar){
         checkCarIsBe(idCar);
         isUserCarOwnerShip(user,idCar);
+        isIdCarInfoIsCorrect(idCar);
+
+    }
+
+    private void isIdCarInfoIsCorrect(Integer idCar){
+        CarEntity car = carRepository.findById(idCar).get();
+        Brand brand = brandRepository.findById(car.getBrandId()).get();
+        Model model = modelRepository.findById(car.getModelId()).get();
+        Generation generation = generationRepository.findById(car.getGenerationId()).get();
+        Color color = colorRepository.findById(car.getColorId()).get();
+        if(brand == null||model==null||generation==null|color==null){
+            throw new NullFindCarInfoException("Cannot find info car by id = "+idCar);
+        }
     }
 
     private void isUserCarOwnerShip(User user,Integer idCar){

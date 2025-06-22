@@ -38,8 +38,8 @@ public class VehicleController {
     }
 
     @GetMapping("/api/user/cars/{idAuto}")
-    public ResponseEntity<CarResponseDTO> getUserCarById(@AuthenticationPrincipal User user,@PathVariable("idAuto") Integer idAuto){
-        return vehicleService.getCarByIdUser(user,idAuto);
+    public ResponseEntity<CarResponseDTO> getUserCarByIdCar(@AuthenticationPrincipal User user,@PathVariable("idAuto") Integer idAuto){
+        return vehicleService.getCarById(user,idAuto);
     }
 
 }
