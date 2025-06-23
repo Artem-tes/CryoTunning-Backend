@@ -83,11 +83,11 @@ public class VehicleServiceIMPL implements VehicleService {
 
     private void isIdCarInfoIsCorrect(Integer idCar){
         CarEntity car = carRepository.findById(idCar).get();
-        Brand brand = brandRepository.findById(car.getBrandId()).get();
-        Model model = modelRepository.findById(car.getModelId()).get();
-        Generation generation = generationRepository.findById(car.getGenerationId()).get();
-        Color color = colorRepository.findById(car.getColorId()).get();
-        if(brand == null||model==null||generation==null|color==null){
+        Optional<Brand> brand = brandRepository.findById(car.getBrandId());
+        Optional<Model> model = modelRepository.findById(car.getModelId());
+        Optional<Generation> generation = generationRepository.findById(car.getGenerationId());
+        Optional<Color> color = colorRepository.findById(car.getColorId());
+        if(brand.isEmpty() || model.isEmpty() || generation.isEmpty() | color.isEmpty()){
             throw new NullFindCarInfoException("Cannot find info car by id = "+idCar);
         }
     }

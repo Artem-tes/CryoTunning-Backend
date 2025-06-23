@@ -1,5 +1,8 @@
 package com.cryotunning.cryotunning;
 
+import com.cryotunning.cryotunning.customexception.CarNotFountException;
+import com.cryotunning.cryotunning.customexception.NullFindCarInfoException;
+import com.cryotunning.cryotunning.customexception.UserHasNotCarException;
 import com.cryotunning.cryotunning.entities.User;
 import com.cryotunning.cryotunning.entities.dbentities.*;
 import com.cryotunning.cryotunning.repository.UserRepository;
@@ -9,6 +12,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.ResponseEntity;
@@ -61,6 +66,55 @@ public class VehicleServiceTest {
         // assert
         assertEquals(response.getStatusCodeValue(),200);
 
+    }
+
+    @Test
+    public void testCarNotFoundException(){
+        when(carRepository.findById(1)).thenReturn(Optional.empty());
+        assertThrows(CarNotFountException.class,
+                ()->vehicleService.getCarById(null,1) );
+    }
+
+    @Test
+    public void testUserHasNotCarException(){
+        when(carRepository.findById(1)).thenReturn(Optional.of(new CarEntity(
+            1,
+                2
+                ,3,
+                4,
+                5,
+                6,
+                7
+        )));
+        User userMock = new User();
+        userMock.setId(1);
+
+        assertThrows(UserHasNotCarException.class,()->
+                vehicleService.getCarById(userMock,1));
+    }
+
+    @Test
+    public void testIsIdCarInfoIsCorrect(){
+        // arrange
+        when(carRepository.findById(1)).thenReturn(Optional.of(new CarEntity(
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+        )));
+        User mockUser = new User();
+        mockUser.setId(2);
+        when(brandRepository.findById(4)).thenReturn(Optional.empty());
+        when(modelRepository.findById(5)).thenReturn(Optional.empty());
+        when(generationRepository.findById(6)).thenReturn(Optional.empty());
+        when(colorRepository.findById(7)).thenReturn(Optional.empty());
+
+        //act
+        assertThrows(NullFindCarInfoException.class,()->
+                vehicleService.getCarById(mockUser,1));
     }
 
 }
