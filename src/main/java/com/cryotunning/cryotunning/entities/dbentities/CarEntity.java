@@ -1,5 +1,6 @@
 package com.cryotunning.cryotunning.entities.dbentities;
 
+import com.cryotunning.cryotunning.entities.SaveEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -10,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CarEntity {
+public class CarEntity extends SaveEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")

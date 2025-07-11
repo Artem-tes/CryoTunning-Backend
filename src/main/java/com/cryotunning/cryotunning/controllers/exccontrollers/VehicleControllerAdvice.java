@@ -1,22 +1,19 @@
 package com.cryotunning.cryotunning.controllers.exccontrollers;
 
-import com.cryotunning.cryotunning.customexception.CarNotFountException;
-import com.cryotunning.cryotunning.customexception.NullFieldException;
-import com.cryotunning.cryotunning.customexception.NullFindCarInfoException;
-import com.cryotunning.cryotunning.customexception.UserHasNotCarException;
+import com.cryotunning.cryotunning.customexception.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
-public class SaveCarControllerAdvice {
+public class VehicleControllerAdvice {
     @ExceptionHandler(NullFieldException.class)
     public ResponseEntity<String> handlingHullFieldException(){
         return ResponseEntity.badRequest().body("Cannot resolve fields from request");
     }
     @ExceptionHandler(NullFindCarInfoException.class)
-    public ResponseEntity<String> handlingNullFieldCarInfoException(){
-        return ResponseEntity.internalServerError().body("Car data bad operate from DB");
+    public ResponseEntity<String> handlingNullFieldCarInfoException(NullFindCarInfoException e){
+        return ResponseEntity.badRequest().body(e.getMessage());
     }
 
     @ExceptionHandler(CarNotFountException.class)
@@ -27,5 +24,10 @@ public class SaveCarControllerAdvice {
     @ExceptionHandler(UserHasNotCarException.class)
     public ResponseEntity<String> handleUserHasNotCarException(UserHasNotCarException userHasNotCarException){
         return ResponseEntity.status(401).body(userHasNotCarException.getMessage());
+    }
+
+    @ExceptionHandler(UserCannotCreateCarException.class)
+    public ResponseEntity<String> handlingUserCannotCreateCarException(UserCannotCreateCarException createCarException){
+        return ResponseEntity.badRequest().body(createCarException.getMessage());
     }
 }

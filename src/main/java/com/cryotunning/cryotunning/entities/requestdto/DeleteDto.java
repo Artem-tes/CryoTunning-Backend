@@ -7,10 +7,6 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CarResponseDTO {
-    private Integer id;
-    private String brand;
-    private String model;
-    private String generation;
-    private String color;
+public class DeleteDto {
+    private Integer idCarToDelete;
 }

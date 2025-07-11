@@ -8,7 +8,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 public interface VehicleService {
     ResponseEntity<?> getUserCars(UserDetails userDetails);
-    ResponseEntity<?> createCar(UserDetails userDetails, CreateCarDTO dto);
-    ResponseEntity<?> deleteCar(UserDetails userDetails,Integer idCar);
+    ResponseEntity<?> createCar(User user, CreateCarDTO dto);
+    ResponseEntity<?> deleteCar(User user,Integer idCar);
     ResponseEntity<CarResponseDTO> getCarById(User user,Integer idCar);
 }
