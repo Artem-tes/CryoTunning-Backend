@@ -24,8 +24,8 @@ public class DeleteCarService implements BaseControllerService<DeleteDto,EmptyFa
     @Override
     public ResponseEntity<EmptyFastFailObject> execute(DeleteDto deleteDto, User user) {
         validate(deleteDto,user);
-        EmptyFastFailObject emptyResponse = operate(deleteDto,user);
-        return ResponseEntity.status(204).body(buildResponse(emptyResponse,user,deleteDto));
+        operate(deleteDto,user);
+        return ResponseEntity.status(204).build();
     }
 
 
@@ -33,7 +33,7 @@ public class DeleteCarService implements BaseControllerService<DeleteDto,EmptyFa
     @Override
     public void validate(DeleteDto deleteDto, User user) {
         checkCorrectIdCar(deleteDto);
-        checkUserOwnerShip(user,deleteDto);
+        checkUserOwnerShip(user);
     }
 
     private void checkCorrectIdCar(DeleteDto deleteDto){
@@ -45,8 +45,7 @@ public class DeleteCarService implements BaseControllerService<DeleteDto,EmptyFa
         }
     }
 
-    private void checkUserOwnerShip(User user, DeleteDto deleteDto){
-        //у нас кеширован результат из метода checkCorrectIdCar
+    private void checkUserOwnerShip(User user){
         if(!carEntity.getIdOwner().equals(user.getId())){
             throw new UserHaveNotCarsException("user is not owner car without id "+carEntity.getId());
         }
@@ -57,14 +56,12 @@ public class DeleteCarService implements BaseControllerService<DeleteDto,EmptyFa
     @Override
     public EmptyFastFailObject operate(DeleteDto deleteDto, User user) {
         // при удалении не нужен ответ из метода операции, для формирвания ответа
-        operateDeleteCar(deleteDto);
+        operateDeleteCar();
         return new EmptyFastFailObject();
     }
-    private void operateDeleteCar(DeleteDto deleteDto){
+    private void operateDeleteCar(){
          carRepository.delete(carEntity);
     }
-
-
 
     //build response
     @Override

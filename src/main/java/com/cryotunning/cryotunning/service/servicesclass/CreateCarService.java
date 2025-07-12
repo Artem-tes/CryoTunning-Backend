@@ -20,7 +20,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class CreateCarService implements BaseControllerService<CreateCarDTO, CarResponseDTO,CarEntity, User> {
+public class CreateCarService implements BaseControllerService<CreateCarDTO, CarResponseDTO,CarEntity> {
 
     private final BrandRepository brandRepository;
     private final ModelRepository modelRepository;
