@@ -1,6 +1,6 @@
 package com.cryotunning.cryotunning.service.servicebase;
 
-import com.cryotunning.cryotunning.entities.User;
+import com.cryotunning.cryotunning.entities.dbentities.User;
 import org.springframework.http.ResponseEntity;
 
 public interface BaseControllerServiceNotHaveRequestDto<RETURN,RETURN_FROM_OPERATE_METHOD>{

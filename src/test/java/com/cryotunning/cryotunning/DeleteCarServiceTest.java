@@ -2,7 +2,7 @@ package com.cryotunning.cryotunning;
 
 import com.cryotunning.cryotunning.customexception.CarNotFountException;
 import com.cryotunning.cryotunning.customexception.UserHaveNotCarsException;
-import com.cryotunning.cryotunning.entities.User;
+import com.cryotunning.cryotunning.entities.dbentities.User;
 import com.cryotunning.cryotunning.entities.dbentities.CarEntity;
 import com.cryotunning.cryotunning.entities.requestdto.DeleteDto;
 import com.cryotunning.cryotunning.repository.carpackage.CarRepository;
@@ -24,9 +24,7 @@ public class DeleteCarServiceTest {
     @Mock
     private CarRepository carRepository;
 
-    @Mock
-    private CarEntity carEntity =
-            new CarEntity(1,1,1,1,1,1,1);
+
 
     @InjectMocks
     DeleteCarService deleteCarService = new DeleteCarService(carRepository);
@@ -35,11 +33,10 @@ public class DeleteCarServiceTest {
     public void positiveExecuteTest(){
         //arrange
         Mockito.when(carRepository.findById(1))
-                .thenReturn(Optional.of(carEntity));
+                .thenReturn(Optional.of(new CarEntity()));
         User mockUser = new User();
         mockUser.setId(1);
-        //Mockito.when(carRepository.delete(carEntity));
-        // как делать в таких ситуацияях
+        Mockito.verify(carRepository).delete(new CarEntity());
         //act
         ResponseEntity<?> response =
                 deleteCarService.execute(new DeleteDto(1),

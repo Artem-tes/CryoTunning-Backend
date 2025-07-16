@@ -2,70 +2,64 @@ package com.cryotunning.cryotunning.service.servicesclass;
 
 import com.cryotunning.cryotunning.customexception.CarNotFountException;
 import com.cryotunning.cryotunning.customexception.UserHaveNotCarsException;
-import com.cryotunning.cryotunning.entities.User;
 import com.cryotunning.cryotunning.entities.dbentities.CarEntity;
+import com.cryotunning.cryotunning.entities.dbentities.User;
 import com.cryotunning.cryotunning.entities.requestdto.DeleteDto;
 import com.cryotunning.cryotunning.repository.carpackage.CarRepository;
-import com.cryotunning.cryotunning.service.servicebase.BaseControllerService;
+import com.cryotunning.cryotunning.service.servicebase.BaseControllerServiceWithoutResponseBody;
 import lombok.RequiredArgsConstructor;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashMap;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class DeleteCarService implements BaseControllerService<DeleteDto,EmptyFastFailObject,EmptyFastFailObject> {
+public class DeleteCarService implements BaseControllerServiceWithoutResponseBody<DeleteDto> {
 
     private final CarRepository carRepository;
-    private CarEntity carEntity;
+    HashMap<String, Object> cache = new HashMap<>();
 
     @Override
-    public ResponseEntity<EmptyFastFailObject> execute(DeleteDto deleteDto, User user) {
+    public ResponseEntity<?> execute(DeleteDto deleteDto, User user) {
         validate(deleteDto,user);
         operate(deleteDto,user);
         return ResponseEntity.status(204).build();
     }
 
-
-    //validate
     @Override
     public void validate(DeleteDto deleteDto, User user) {
-        checkCorrectIdCar(deleteDto);
-        checkUserOwnerShip(user);
+        validateCarIsBe(deleteDto);
+        validateUserOwnerShip(user);
     }
 
-    private void checkCorrectIdCar(DeleteDto deleteDto){
-        Optional<CarEntity> car =carRepository.findById(deleteDto.getIdCarToDelete());
-        if(car.isEmpty()){
-            throw new CarNotFountException("id car "+deleteDto.getIdCarToDelete()+"incorrect");
+    private void validateCarIsBe(DeleteDto deleteDto){
+        Optional<CarEntity> carEntityOptional = carRepository.findById(deleteDto.getIdCarToDelete());
+        if(carEntityOptional.isEmpty()){
+            throw new CarNotFountException("car with out id = "+deleteDto.getIdCarToDelete()+" not found");
         }else {
-            carEntity = car.get();
+            cache.put("car",carEntityOptional.get());
         }
     }
 
-    private void checkUserOwnerShip(User user){
-        if(!carEntity.getIdOwner().equals(user.getId())){
-            throw new UserHaveNotCarsException("user is not owner car without id "+carEntity.getId());
+    private void validateUserOwnerShip(User user){
+        CarEntity carEntity = (CarEntity) cache.get("car");
+        if(!user.getId().equals(carEntity.getIdOwner())){
+            throw new UserHaveNotCarsException(
+                    "user without id = "+user.getId()+" not have car without id = "+carEntity.getId());
         }
     }
 
-
-    //operate block
     @Override
-    public EmptyFastFailObject operate(DeleteDto deleteDto, User user) {
-        // при удалении не нужен ответ из метода операции, для формирвания ответа
-        operateDeleteCar();
-        return new EmptyFastFailObject();
-    }
-    private void operateDeleteCar(){
-         carRepository.delete(carEntity);
+    public void operate(DeleteDto deleteDto,User user) {
+        deleteCarById();
     }
 
-    //build response
-    @Override
-    public EmptyFastFailObject buildResponse(EmptyFastFailObject entity, User user, DeleteDto deleteDto) {
-        return new EmptyFastFailObject();
+    @Transactional
+    private void deleteCarById(){
+        carRepository.delete((CarEntity) cache.get("car"));
     }
 }

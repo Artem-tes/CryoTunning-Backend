@@ -1,8 +1,9 @@
 package com.cryotunning.cryotunning.controllers;
 
+import com.cryotunning.cryotunning.entities.dbentities.User;
 import com.cryotunning.cryotunning.entities.requestdto.AuthDTO;
-import com.cryotunning.cryotunning.entities.requestdto.ResponseLoginDTO;
 import com.cryotunning.cryotunning.service.AuthLoginService;
+import com.cryotunning.cryotunning.service.servicesclass.RegistrationService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -14,15 +15,16 @@ import org.springframework.web.bind.annotation.RequestBody;
 @RequiredArgsConstructor
 public class AuthController {
 
-    private final AuthLoginService authLoginService;
+    private final RegistrationService registrationService;
 
-    @PostMapping("/api/public/registr")
-    public ResponseEntity<String> postAuthEndPoint(@Valid @RequestBody AuthDTO authDTO){
-        return authLoginService.regNewUser(authDTO);
+
+    @PostMapping("/api/registr")
+    public ResponseEntity<?> registrUser(@Valid @RequestBody AuthDTO authDTO){
+        return registrationService.execute(authDTO,new User());
     }
 
-    @PostMapping("/api/public/login")
-    public ResponseEntity<?> postLoginEndPoint(@Valid @RequestBody AuthDTO authDTO){
-        return authLoginService.authAction(authDTO);
+    @PostMapping("/api/login")
+    public ResponseEntity<?> loginUser(@Valid @RequestBody AuthDTO authDTO){
+
     }
 }

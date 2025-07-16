@@ -30,4 +30,9 @@ public class VehicleControllerAdvice {
     public ResponseEntity<String> handlingUserCannotCreateCarException(UserCannotCreateCarException createCarException){
         return ResponseEntity.badRequest().body(createCarException.getMessage());
     }
+
+    @ExceptionHandler(UsernameIsOwningException.class)
+    public ResponseEntity<String> handlingUsernameIsOwningException(UsernameIsOwningException e){
+        return ResponseEntity.status(400).body(e.getMessage());
+    }
 }

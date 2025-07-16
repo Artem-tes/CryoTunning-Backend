@@ -1,7 +1,7 @@
 package com.cryotunning.cryotunning.service;
 
-import com.cryotunning.cryotunning.entities.User;
-import com.cryotunning.cryotunning.entities.requestdto.CarResponseDTO;
+import com.cryotunning.cryotunning.entities.dbentities.User;
+import com.cryotunning.cryotunning.entities.responsesto.CarResponseDTO;
 import com.cryotunning.cryotunning.entities.requestdto.CreateCarDTO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;

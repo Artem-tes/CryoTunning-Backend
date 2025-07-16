@@ -1,6 +1,6 @@
 package com.cryotunning.cryotunning.filters.users;
 
-import com.cryotunning.cryotunning.entities.User;
+import com.cryotunning.cryotunning.entities.dbentities.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -8,7 +8,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
 
 @RequiredArgsConstructor
 public class CustomUserDetails implements UserDetails {

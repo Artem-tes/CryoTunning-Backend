@@ -1,4 +1,4 @@
-package com.cryotunning.cryotunning.entities.requestdto;
+package com.cryotunning.cryotunning.entities.responsesto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

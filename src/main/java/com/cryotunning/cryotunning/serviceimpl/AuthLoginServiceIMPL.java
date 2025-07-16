@@ -1,8 +1,8 @@
 package com.cryotunning.cryotunning.serviceimpl;
 
-import com.cryotunning.cryotunning.entities.User;
+import com.cryotunning.cryotunning.entities.dbentities.User;
 import com.cryotunning.cryotunning.entities.requestdto.AuthDTO;
-import com.cryotunning.cryotunning.entities.requestdto.ResponseLoginDTO;
+import com.cryotunning.cryotunning.entities.responsesto.ResponseLoginDTO;
 import com.cryotunning.cryotunning.enums.ROLES;
 import com.cryotunning.cryotunning.repository.UserRepository;
 import com.cryotunning.cryotunning.service.AuthLoginService;
@@ -10,19 +10,12 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.nio.charset.StandardCharsets;
 import java.security.Key;
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.temporal.ChronoUnit;
 import java.util.Date;
 
 @Service

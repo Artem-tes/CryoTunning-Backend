@@ -2,15 +2,12 @@ package com.cryotunning.cryotunning;
 
 import com.cryotunning.cryotunning.customexception.NullFindCarInfoException;
 import com.cryotunning.cryotunning.customexception.UserCannotCreateCarException;
-import com.cryotunning.cryotunning.entities.User;
+import com.cryotunning.cryotunning.entities.dbentities.User;
 import com.cryotunning.cryotunning.entities.dbentities.*;
-import com.cryotunning.cryotunning.entities.requestdto.CarResponseDTO;
+import com.cryotunning.cryotunning.entities.responsesto.CarResponseDTO;
 import com.cryotunning.cryotunning.entities.requestdto.CreateCarDTO;
-import com.cryotunning.cryotunning.repository.UserRepository;
 import com.cryotunning.cryotunning.repository.carpackage.*;
 import com.cryotunning.cryotunning.service.servicesclass.CreateCarService;
-import com.cryotunning.cryotunning.serviceimpl.VehicleServiceIMPL;
-import org.junit.jupiter.api.NamedExecutable;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.function.Executable;

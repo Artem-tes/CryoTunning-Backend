@@ -16,4 +16,5 @@ public interface CarRepository extends JpaRepository<CarEntity, Integer> {
     @Query(value = "SELECT * FROM custom_cars WHERE id_owner = :idOwner",nativeQuery = true)
     Optional<LinkedList<CarEntity>> getAllCarById(@Param("idOwner") Integer idOwner);
 
+
 }
