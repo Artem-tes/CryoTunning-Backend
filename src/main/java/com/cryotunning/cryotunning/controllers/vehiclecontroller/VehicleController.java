@@ -1,4 +1,4 @@
-package com.cryotunning.cryotunning.controllers;
+package com.cryotunning.cryotunning.controllers.vehiclecontroller;
 
 import com.cryotunning.cryotunning.entities.dbentities.User;
 import com.cryotunning.cryotunning.entities.responsesto.CarResponseDTO;
@@ -6,6 +6,7 @@ import com.cryotunning.cryotunning.entities.requestdto.CreateCarDTO;
 import com.cryotunning.cryotunning.entities.requestdto.DeleteDto;
 import com.cryotunning.cryotunning.entities.requestdto.GetCarRequestDTO;
 import com.cryotunning.cryotunning.service.servicesclass.*;
+import io.swagger.v3.oas.annotations.Parameter;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -52,7 +53,10 @@ public class VehicleController {
     //RESPONSE TYPE - EMPTY,STATUS - 204
     @DeleteMapping("/api/user/cars/{id}")
     public ResponseEntity<?> deleteCar(@AuthenticationPrincipal
-                                       User user, @PathVariable("id") Integer idCar){
+                                       User user, @PathVariable("id")
+    @Parameter(name = "ID машины на удаление",
+    description = "По этому ID удалится машина," +
+            "если она пренадлежит этому пользотвателю") Integer idCar){
         return deleteCarService.execute(new DeleteDto(idCar),user);
 
     }

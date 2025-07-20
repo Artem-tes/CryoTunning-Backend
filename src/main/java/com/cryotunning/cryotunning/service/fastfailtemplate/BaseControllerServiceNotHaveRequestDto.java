@@ -1,4 +1,4 @@
-package com.cryotunning.cryotunning.service.servicebase;
+package com.cryotunning.cryotunning.service.fastfailtemplate;
 
 import com.cryotunning.cryotunning.entities.dbentities.User;
 import org.springframework.http.ResponseEntity;

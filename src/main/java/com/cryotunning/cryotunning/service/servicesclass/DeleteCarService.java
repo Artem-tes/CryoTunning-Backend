@@ -1,19 +1,18 @@
 package com.cryotunning.cryotunning.service.servicesclass;
 
-import com.cryotunning.cryotunning.customexception.CarNotFountException;
-import com.cryotunning.cryotunning.customexception.UserHaveNotCarsException;
+import com.cryotunning.cryotunning.customexception.vehicleexception.CarNotFountException;
+import com.cryotunning.cryotunning.customexception.vehicleexception.UserHaveNotCarsException;
 import com.cryotunning.cryotunning.entities.dbentities.CarEntity;
 import com.cryotunning.cryotunning.entities.dbentities.User;
 import com.cryotunning.cryotunning.entities.requestdto.DeleteDto;
 import com.cryotunning.cryotunning.repository.carpackage.CarRepository;
-import com.cryotunning.cryotunning.service.servicebase.BaseControllerServiceWithoutResponseBody;
+import com.cryotunning.cryotunning.service.fastfailtemplate.BaseControllerServiceWithoutResponseBody;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
-import java.util.Objects;
 import java.util.Optional;
 
 @Service

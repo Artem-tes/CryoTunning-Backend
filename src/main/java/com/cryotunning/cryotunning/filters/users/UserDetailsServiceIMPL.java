@@ -1,7 +1,7 @@
 package com.cryotunning.cryotunning.filters.users;
 
 import com.cryotunning.cryotunning.entities.dbentities.User;
-import com.cryotunning.cryotunning.repository.UserRepository;
+import com.cryotunning.cryotunning.repository.userpackage.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

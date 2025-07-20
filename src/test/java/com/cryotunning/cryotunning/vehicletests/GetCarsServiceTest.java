@@ -1,4 +1,4 @@
-package com.cryotunning.cryotunning;
+package com.cryotunning.cryotunning.vehicletests;
 
 import com.cryotunning.cryotunning.entities.dbentities.User;
 import com.cryotunning.cryotunning.entities.dbentities.*;

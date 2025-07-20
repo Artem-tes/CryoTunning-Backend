@@ -1,13 +1,13 @@
 package com.cryotunning.cryotunning.service.servicesclass;
 
-import com.cryotunning.cryotunning.customexception.NullFindCarInfoException;
-import com.cryotunning.cryotunning.customexception.UserCannotCreateCarException;
+import com.cryotunning.cryotunning.customexception.vehicleexception.NullFindCarInfoException;
+import com.cryotunning.cryotunning.customexception.vehicleexception.UserCannotCreateCarException;
 import com.cryotunning.cryotunning.entities.dbentities.User;
 import com.cryotunning.cryotunning.entities.dbentities.CarEntity;
 import com.cryotunning.cryotunning.entities.responsesto.CarResponseDTO;
 import com.cryotunning.cryotunning.entities.requestdto.CreateCarDTO;
 import com.cryotunning.cryotunning.repository.carpackage.*;
-import com.cryotunning.cryotunning.service.servicebase.BaseControllerService;
+import com.cryotunning.cryotunning.service.fastfailtemplate.BaseControllerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.ResponseEntity;

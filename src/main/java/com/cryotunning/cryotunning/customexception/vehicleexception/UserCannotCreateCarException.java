@@ -1,4 +1,4 @@
-package com.cryotunning.cryotunning.customexception;
+package com.cryotunning.cryotunning.customexception.vehicleexception;
 
 public class UserCannotCreateCarException extends RuntimeException {
     public UserCannotCreateCarException(String message) {

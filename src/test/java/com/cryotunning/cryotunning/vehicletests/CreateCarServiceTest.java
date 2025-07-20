@@ -1,7 +1,7 @@
-package com.cryotunning.cryotunning;
+package com.cryotunning.cryotunning.vehicletests;
 
-import com.cryotunning.cryotunning.customexception.NullFindCarInfoException;
-import com.cryotunning.cryotunning.customexception.UserCannotCreateCarException;
+import com.cryotunning.cryotunning.customexception.vehicleexception.NullFindCarInfoException;
+import com.cryotunning.cryotunning.customexception.vehicleexception.UserCannotCreateCarException;
 import com.cryotunning.cryotunning.entities.dbentities.User;
 import com.cryotunning.cryotunning.entities.dbentities.*;
 import com.cryotunning.cryotunning.entities.responsesto.CarResponseDTO;

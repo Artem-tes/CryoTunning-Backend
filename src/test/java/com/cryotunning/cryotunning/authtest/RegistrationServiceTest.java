@@ -1,11 +1,10 @@
 package com.cryotunning.cryotunning.authtest;
 
-import com.cryotunning.cryotunning.customexception.UsernameIsOwningException;
+import com.cryotunning.cryotunning.customexception.userexception.UsernameIsOwningException;
 import com.cryotunning.cryotunning.entities.dbentities.User;
 import com.cryotunning.cryotunning.entities.requestdto.AuthDTO;
-import com.cryotunning.cryotunning.repository.UserRepository;
+import com.cryotunning.cryotunning.repository.userpackage.UserRepository;
 import com.cryotunning.cryotunning.service.servicesclass.RegistrationService;
-import org.checkerframework.checker.units.qual.A;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -35,7 +34,7 @@ public class RegistrationServiceTest {
         AuthDTO authDTO = new AuthDTO();
         authDTO.setUsername("username");
         authDTO.setPassword("password");
-        Mockito.when(userRepository.findByUsernameOptional(authDTO.getUsername()))
+        Mockito.when(userRepository.getByUsernameOptional(authDTO.getUsername()))
                 .thenReturn(Optional.empty());
         Mockito.when(userRepository.save(Mockito.any(User.class)))
                 .thenReturn(new User());
@@ -48,7 +47,7 @@ public class RegistrationServiceTest {
     public void negativeThrowUsernameIsOwningExceptionTest(){
         AuthDTO authDTO = new AuthDTO();
         authDTO.setUsername("username");
-        Mockito.when(userRepository.findByUsernameOptional(authDTO.getUsername()))
+        Mockito.when(userRepository.getByUsernameOptional(authDTO.getUsername()))
                 .thenReturn(Optional.of(new User()));
         Assertions.assertThrows(UsernameIsOwningException.class,()-> registrationService.execute(authDTO,new User()));
     }

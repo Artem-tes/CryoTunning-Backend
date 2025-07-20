@@ -1,11 +1,11 @@
 package com.cryotunning.cryotunning.service.servicesclass;
 
-import com.cryotunning.cryotunning.customexception.UsernameIsOwningException;
+import com.cryotunning.cryotunning.customexception.userexception.UsernameIsOwningException;
 import com.cryotunning.cryotunning.entities.dbentities.User;
 import com.cryotunning.cryotunning.entities.requestdto.AuthDTO;
 import com.cryotunning.cryotunning.enums.ROLES;
-import com.cryotunning.cryotunning.repository.UserRepository;
-import com.cryotunning.cryotunning.service.servicebase.BaseControllerServiceWithoutResponseBody;
+import com.cryotunning.cryotunning.repository.userpackage.UserRepository;
+import com.cryotunning.cryotunning.service.fastfailtemplate.BaseControllerServiceWithoutResponseBody;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -34,7 +34,7 @@ public class RegistrationService implements BaseControllerServiceWithoutResponse
 
     private void validateUsernameOwning(AuthDTO authDTO){
         String username = authDTO.getUsername();
-        Optional<User> userOptional = userRepository.findByUsernameOptional(username);
+        Optional<User> userOptional = userRepository.getByUsernameOptional(username);
         if(userOptional.isPresent()){
             throw new UsernameIsOwningException("username = "+username+" is owning");
         }
@@ -47,7 +47,7 @@ public class RegistrationService implements BaseControllerServiceWithoutResponse
     }
 
     private void saveUserToDB(AuthDTO authDTO,String encodePassword){
-        userRepository.save(new User(authDTO.getUsername(),encodePassword, "USER"));
+        userRepository.save(new User(authDTO.getUsername(),encodePassword, ROLES.USER.name()));
     }
 
     private String encodePasswordByAuthDTO(AuthDTO authDTO){
