@@ -22,7 +22,6 @@ public class VehicleController {
     private final CreateCarService createCarService;
     private final GetCarsService getCarsService;
     private final DeleteCarService deleteCarService;
-    private final GetUserCarByIdService getUserCarByIdService;
 
 
 
@@ -46,9 +45,9 @@ public class VehicleController {
 
     }
 
-    @GetMapping("/api/user/cars/{idAuto}")
-    public ResponseEntity<CarResponseDTO> getUserCarByIdCar(@AuthenticationPrincipal User user,@PathVariable("idAuto") Integer idAuto){
-        return getUserCarByIdService.execute(new GetCarRequestDTO(idAuto),user);
-    }
+//    @GetMapping("/api/user/cars/{idAuto}")
+//    public ResponseEntity<CarResponseDTO> getUserCarByIdCar(@AuthenticationPrincipal User user,@PathVariable("idAuto") Integer idAuto){
+//        return getUserCarByIdService.execute(new GetCarRequestDTO(idAuto),user);
+//    }
 
 }

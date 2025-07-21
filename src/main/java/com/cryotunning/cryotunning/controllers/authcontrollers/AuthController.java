@@ -38,7 +38,6 @@ public class AuthController {
                     content = @Content(mediaType = "application/json"),
                     description = "Username указаный в теле запроса уже занят")
     })
-
     @PostMapping("/api/public/registr")
     public ResponseEntity<?> registrUser(@Valid @RequestBody AuthDTO authDTO){
         return registrationService.execute(authDTO,new User());
