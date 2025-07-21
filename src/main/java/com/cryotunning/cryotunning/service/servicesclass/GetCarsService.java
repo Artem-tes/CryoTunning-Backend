@@ -23,6 +23,7 @@ public class GetCarsService implements BaseControllerServiceNotHaveRequestDto<Li
     private final GenerationRepository generationRepository;
     private final ColorRepository colorRepository;
 
+
     @Override
     public ResponseEntity<LinkedList<CarResponseDTO>> execute(User user) {
         validate(user);

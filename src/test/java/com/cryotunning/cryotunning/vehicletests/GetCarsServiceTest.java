@@ -20,6 +20,8 @@ import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class GetCarsServiceTest {
+
+
     @Mock
     private  CarRepository carRepository;
     @Mock
@@ -32,7 +34,7 @@ public class GetCarsServiceTest {
     private  ColorRepository colorRepository;
 
     @InjectMocks
-    GetCarsService getCarsService = new GetCarsService(carRepository,brandRepository,modelRepository,generationRepository,colorRepository);
+    GetCarsService getCarsService;
 
     @Test
     public void positiveGetCarsServiceTest(){

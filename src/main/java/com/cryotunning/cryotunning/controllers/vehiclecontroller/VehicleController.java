@@ -22,14 +22,10 @@ public class VehicleController {
     private final CreateCarService createCarService;
     private final GetCarsService getCarsService;
     private final DeleteCarService deleteCarService;
-    private final GetUserCarByIdService getUserCarByIdService = new GetUserCarByIdService();
+    private final GetUserCarByIdService getUserCarByIdService;
 
 
 
-    //createCarService
-    //POST /api/user/cars - создание нового авто
-    //REQUEST TYPE - набор данных для создания(CreateCarDTO)
-    //RETURN TYPE - сохраненое авто(CarResponseDTO)
     @PostMapping("/api/user/cars")
     public ResponseEntity<CarResponseDTO> createCar(@AuthenticationPrincipal User user,
                                        @Valid @RequestBody CreateCarDTO createCarDTO){
@@ -37,34 +33,19 @@ public class VehicleController {
     }
 
 
-    //getCarService
-    //GET /api/user/cars
-    //REQUEST TYPE - NONE
-    //RETURN TYPE - List<CarResponseDTO>
     @GetMapping("/api/user/cars")
     public ResponseEntity<LinkedList<CarResponseDTO>> getCars(@AuthenticationPrincipal
                                          User user){
         return getCarsService.execute(user);
     }
 
-    //deleteCarService
-    //DELETE /api/user/cars/id(удаляемого авто)
-    //REQUEST TYPE - DeleteDTO
-    //RESPONSE TYPE - EMPTY,STATUS - 204
     @DeleteMapping("/api/user/cars/{id}")
     public ResponseEntity<?> deleteCar(@AuthenticationPrincipal
-                                       User user, @PathVariable("id")
-    @Parameter(name = "ID машины на удаление",
-    description = "По этому ID удалится машина," +
-            "если она пренадлежит этому пользотвателю") Integer idCar){
-        return deleteCarService.execute(new DeleteDto(idCar),user);
+                                       User user, @PathVariable("id")Integer id){
+        return deleteCarService.execute(new DeleteDto(id),user);
 
     }
 
-    //getUserCarByIdService
-    //GET /api/user/cars/34(id авто)
-    //REQUEST TYPE - GetCarRequestDTO
-    //RESPONSE TYPE - CarResponseDTO
     @GetMapping("/api/user/cars/{idAuto}")
     public ResponseEntity<CarResponseDTO> getUserCarByIdCar(@AuthenticationPrincipal User user,@PathVariable("idAuto") Integer idAuto){
         return getUserCarByIdService.execute(new GetCarRequestDTO(idAuto),user);
