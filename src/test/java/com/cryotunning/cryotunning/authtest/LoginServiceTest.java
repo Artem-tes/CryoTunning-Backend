@@ -1,5 +1,6 @@
 package com.cryotunning.cryotunning.authtest;
 
+import com.cryotunning.cryotunning.customexception.userexception.IncorrectPasswordException;
 import com.cryotunning.cryotunning.entities.dbentities.LoginUser;
 import com.cryotunning.cryotunning.entities.dbentities.User;
 import com.cryotunning.cryotunning.entities.requestdto.AuthDTO;
@@ -16,6 +17,7 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.LinkedList;
@@ -52,6 +54,24 @@ public class LoginServiceTest {
 
         ResponseEntity<CompleteAuthDTO> response = loginService.execute(mockAuthDTO,new User());
         Assertions.assertEquals(HttpStatusCode.valueOf(200),response.getStatusCode());
+    }
+
+    @Test
+    public void negativeUsernameNotFoundExceptionThrows(){
+        AuthDTO mockAuthDTO = new AuthDTO();
+        mockAuthDTO.setUsername("not_founded_username");
+        Assertions.assertThrows(UsernameNotFoundException.class,()->loginService.execute(mockAuthDTO,new User()));
+
+    }
+
+    @Test
+    public void negativeIncorrectPasswordExceptionThrows(){
+        AuthDTO mockAuthDTO = new AuthDTO();
+        mockAuthDTO.setUsername("ultimate");
+        mockAuthDTO.setPassword("incorrectPassword");
+        Mockito.when(mockUserRepository.getByUsernameOptional(mockAuthDTO.getUsername()))
+                .thenReturn(Optional.of(new User()));
+        Assertions.assertThrows(IncorrectPasswordException.class,()->loginService.execute(mockAuthDTO,new User()));
     }
 
 
