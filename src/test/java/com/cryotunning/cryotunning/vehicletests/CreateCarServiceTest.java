@@ -102,38 +102,5 @@ public class CreateCarServiceTest {
         });
     }
 
-//    //2 - UserCannotCreateCarException
-//    @Test
-//    public void testUserCannotCreateCarException(){
-//        CreateCarDTO carDTO = new CreateCarDTO();
-//        carDTO.setColor("1");
-//        carDTO.setGeneration("1");
-//        carDTO.setModel("1");
-//        carDTO.setBrand("1");
-//        User mockUser = new User();
-//        mockUser.setId(1);
-//        LinkedList<CarEntity> carEntities = new LinkedList<>();
-//        for (int i = 0; i < 7; i++) {
-//            carEntities.add(new CarEntity());
-//        }
-//        when(brandRepository.getIdByBrandNameOptional(carDTO.getBrand()))
-//                .thenReturn(Optional.of(1));
-//        when(modelRepository.getIdByModelNameOptional(carDTO.getModel()))
-//                .thenReturn(Optional.of(1));
-//        when(generationRepository.getIdByGenerationNameOptional(carDTO.getGeneration()))
-//                .thenReturn(Optional.of(1));
-//        when(colorRepository.getIdByNameColorOptional(carDTO.getColor()))
-//                .thenReturn(Optional.of(1));
-//        when(carRepository.getAllCarById(1)).thenReturn(
-//             Optional.of(carEntities)
-//        );
-//        //check
-//        assertThrows(UserCannotCreateCarException.class, new Executable() {
-//            @Override
-//            public void execute() throws Throwable {
-//                createCarService.execute(carDTO,mockUser);
-//            }
-//        });
-//    }
 
 }

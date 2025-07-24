@@ -59,6 +59,7 @@ public class DeleteCarService implements BaseControllerServiceWithoutResponseBod
 
     @Transactional
     private void deleteCarById(){
-        carRepository.delete((CarEntity) cache.get("car"));
+        CarEntity carEntityFromCache = (CarEntity) cache.get("car");
+        carRepository.deleteCarByd(carEntityFromCache.getId());
     }
 }

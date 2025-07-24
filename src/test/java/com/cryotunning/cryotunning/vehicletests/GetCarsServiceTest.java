@@ -1,5 +1,6 @@
 package com.cryotunning.cryotunning.vehicletests;
 
+import com.cryotunning.cryotunning.customexception.vehicleexception.UserHaveNotCarsException;
 import com.cryotunning.cryotunning.entities.dbentities.User;
 import com.cryotunning.cryotunning.entities.dbentities.*;
 import com.cryotunning.cryotunning.repository.carpackage.*;
@@ -9,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.ResponseEntity;
 
@@ -56,4 +58,14 @@ public class GetCarsServiceTest {
         Assertions.assertEquals(200,response.getStatusCodeValue());
 
     }
+
+    @Test
+    public void testUserHaveNotCarsExceptionThrow(){
+        Mockito.when(carRepository.getAllCarById(1))
+                .thenReturn(Optional.empty());
+        User mockUser = new User();
+        mockUser.setId(1);
+        Assertions.assertThrows(UserHaveNotCarsException.class,()->getCarsService.execute(mockUser));
+    }
+
 }

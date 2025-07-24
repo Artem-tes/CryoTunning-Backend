@@ -35,7 +35,8 @@ public class GetCarsService implements BaseControllerServiceNotHaveRequestDto<Li
     public void validate(User user) {
         checkUserHaveCar(user);
     }
-    //validate block
+
+
     private void checkUserHaveCar(User user){
         if(carRepository.getAllCarById(user.getId()).isEmpty()){
             throw new UserHaveNotCarsException("user hav not car " +
@@ -48,7 +49,6 @@ public class GetCarsService implements BaseControllerServiceNotHaveRequestDto<Li
         LinkedList<CarEntity> carEntities = getAllCarById(user.getId());
         return carEntities;
     }
-    // operate block
     private LinkedList<CarEntity> getAllCarById(Integer idUser){
         return carRepository.getAllCarById(idUser).get();
     }

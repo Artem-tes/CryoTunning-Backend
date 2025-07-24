@@ -5,8 +5,12 @@ import com.cryotunning.cryotunning.entities.dbentities.CarEntity;
 import com.cryotunning.cryotunning.entities.responsesto.CarResponseDTO;
 import com.cryotunning.cryotunning.entities.requestdto.GetCarRequestDTO;
 import com.cryotunning.cryotunning.service.fastfailtemplate.BaseControllerService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 
+@Service
+@RequiredArgsConstructor
 public class GetUserCarByIdService implements BaseControllerService<GetCarRequestDTO, CarResponseDTO, CarEntity> {
 
     @Override

@@ -14,8 +14,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.stubbing.OngoingStubbing;
 import org.springframework.http.ResponseEntity;
 
+import java.util.HashMap;
 import java.util.Optional;
 
 @ExtendWith(MockitoExtension.class)
@@ -24,24 +26,32 @@ public class DeleteCarServiceTest {
     @Mock
     private CarRepository carRepository;
 
-
-
     @InjectMocks
-    DeleteCarService deleteCarService = new DeleteCarService(carRepository);
+    DeleteCarService deleteCarService;
 
     @Test
     public void positiveExecuteTest(){
-        //arrange
-        Mockito.when(carRepository.findById(1))
-                .thenReturn(Optional.of(new CarEntity()));
+        // arrange
+        CarEntity carEntity = new CarEntity();
+        carEntity.setIdOwner(1);
+        carEntity.setId(1); // <- Добавлено: корректный id автомобиля
+        DeleteDto deleteDto = new DeleteDto();
+        deleteDto.setIdCarToDelete(1);
+
+        Mockito.when(carRepository.findById(deleteDto.getIdCarToDelete()))
+                .thenReturn(Optional.of(carEntity));
+
         User mockUser = new User();
         mockUser.setId(1);
-        Mockito.verify(carRepository).delete(new CarEntity());
-        //act
-        ResponseEntity<?> response =
-                deleteCarService.execute(new DeleteDto(1),
-                        mockUser);
-        Assertions.assertEquals(204,response.getStatusCodeValue());
+
+        // Предположим, что deleteCarByd - void, сделаем стабирование так:
+        Mockito.doNothing().when(carRepository).deleteCarByd(1);
+
+        // act
+        ResponseEntity<?> response = deleteCarService.execute(deleteDto, mockUser);
+
+        // assert
+        Assertions.assertEquals(204, response.getStatusCodeValue());
     }
 
     @Test
