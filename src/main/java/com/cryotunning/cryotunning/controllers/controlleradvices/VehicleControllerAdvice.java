@@ -2,6 +2,7 @@ package com.cryotunning.cryotunning.controllers.controlleradvices;
 
 import com.cryotunning.cryotunning.customexception.userexception.UsernameIsOwningException;
 import com.cryotunning.cryotunning.customexception.vehicleexception.*;
+import com.cryotunning.cryotunning.entities.responsesto.ErrorDTO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -35,5 +36,10 @@ public class VehicleControllerAdvice {
     @ExceptionHandler(UsernameIsOwningException.class)
     public ResponseEntity<String> handlingUsernameIsOwningException(UsernameIsOwningException e){
         return ResponseEntity.status(400).body(e.getMessage());
+    }
+
+    @ExceptionHandler(UserHaveNotCarsException.class)
+    public ResponseEntity<ErrorDTO> handlingUserHaveNotCarsException(UserHaveNotCarsException e){
+        return ResponseEntity.status(400).body(new ErrorDTO(400, e.getMessage()));
     }
 }

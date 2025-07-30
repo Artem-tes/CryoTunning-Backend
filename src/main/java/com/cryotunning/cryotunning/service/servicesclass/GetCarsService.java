@@ -39,7 +39,7 @@ public class GetCarsService implements BaseControllerServiceNotHaveRequestDto<Li
 
     private void checkUserHaveCar(User user){
         if(carRepository.getAllCarById(user.getId()).isEmpty()){
-            throw new UserHaveNotCarsException("user hav not car " +
+            throw new UserHaveNotCarsException("user have not car " +
                     "|| checkUserHaveCar|validate|GetCarsService");
         }
     }

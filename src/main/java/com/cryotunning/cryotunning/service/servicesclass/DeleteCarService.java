@@ -54,12 +54,11 @@ public class DeleteCarService implements BaseControllerServiceWithoutResponseBod
 
     @Override
     public void operate(DeleteDto deleteDto,User user) {
-        deleteCarById();
+        deleteCar();
     }
 
-    @Transactional
-    private void deleteCarById(){
+    private void deleteCar(){
         CarEntity carEntityFromCache = (CarEntity) cache.get("car");
-        carRepository.deleteCarByd(carEntityFromCache.getId());
+        carRepository.delete(carEntityFromCache);
     }
 }

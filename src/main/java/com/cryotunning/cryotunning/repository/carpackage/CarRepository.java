@@ -16,7 +16,7 @@ public interface CarRepository extends JpaRepository<CarEntity, Integer> {
     @Query(value = "SELECT * FROM custom_cars WHERE id_owner = :idOwner",nativeQuery = true)
     Optional<LinkedList<CarEntity>> getAllCarById(@Param("idOwner") Integer idOwner);
 
-    @Query(value = "DELETE * FROM custom_cars WHERE id = :id",nativeQuery = true)
+    @Query(value = "DELETE FROM custom_cars WHERE id = :id",nativeQuery = true)
     void deleteCarByd(@Param("id") Integer id);
 
 
