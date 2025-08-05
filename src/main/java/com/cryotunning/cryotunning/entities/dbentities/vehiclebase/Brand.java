@@ -1,4 +1,4 @@
-package com.cryotunning.cryotunning.entities.dbentities;
+package com.cryotunning.cryotunning.entities.dbentities.vehiclebase;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -6,15 +6,16 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "colors")
+@Table(name = "brands")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Color {
+public class Brand {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Integer id;
-    @Column(name = "color_name")
-    private String colorName;
+    @Column(name = "brand_name")
+    private String brandName;
+
 }

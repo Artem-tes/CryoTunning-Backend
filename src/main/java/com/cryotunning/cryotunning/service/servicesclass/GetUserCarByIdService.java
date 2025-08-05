@@ -4,6 +4,10 @@ import com.cryotunning.cryotunning.customexception.vehicleexception.CarNotFountE
 import com.cryotunning.cryotunning.customexception.vehicleexception.NullFindCarInfoException;
 import com.cryotunning.cryotunning.customexception.vehicleexception.UserHasNotCarException;
 import com.cryotunning.cryotunning.entities.dbentities.*;
+import com.cryotunning.cryotunning.entities.dbentities.vehiclebase.Brand;
+import com.cryotunning.cryotunning.entities.dbentities.vehiclebase.Color;
+import com.cryotunning.cryotunning.entities.dbentities.vehiclebase.Generation;
+import com.cryotunning.cryotunning.entities.dbentities.vehiclebase.Model;
 import com.cryotunning.cryotunning.entities.responsesto.CarResponseDTO;
 import com.cryotunning.cryotunning.entities.requestdto.GetCarRequestDTO;
 import com.cryotunning.cryotunning.repository.carpackage.*;
