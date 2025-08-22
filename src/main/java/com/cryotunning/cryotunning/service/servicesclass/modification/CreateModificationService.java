@@ -46,17 +46,18 @@ public class CreateModificationService implements BaseControllerServiceWithoutRe
     private void validateUserOwnerShipCar(Integer id,User user){
         CarEntity carEntity = carRepository.findById(id).get();
         if(!carEntity.getIdOwner().equals(user.getId())){
-            throw new UserHasNotCarException("User without id = "+user.getId()+"not have car without id = "+carEntity.getId());
+            throw new UserHasNotCarException(
+                    "User without id = "+user.getId()+"not have car without id = "+carEntity.getId());
         }
     }
 
     private void validateCarHaveModification(Integer id){
         CarEntity carEntity = carRepository.findById(id).get();
         if(carEntity.getIdModification() != null){
-            throw new CarIsOwningModification("Car without id = "+id+"is owning modification ID = "+carEntity.getIdModification());
+            throw new CarIsOwningModification(
+                    "Car without id = "+id+"is owning modification ID = "+carEntity.getIdModification());
         }
     }
-
 
 
     @Override
